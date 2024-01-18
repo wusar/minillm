@@ -2,7 +2,7 @@ import datasets
 import os
 import re
 
-dataset = datasets.load_dataset('openwebtext', split='train')
+dataset = datasets.load_dataset('openwebtext', split='train', data_files='/home/oem/lifanwu/openwebtext')
 
 os.makedirs("data/openwebtext", exist_ok=True)
 
