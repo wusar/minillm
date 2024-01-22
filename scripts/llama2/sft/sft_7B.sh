@@ -4,7 +4,7 @@ MASTER_ADDR=localhost
 MASTER_PORT=${2-2012}
 NNODES=1
 NODE_RANK=0
-GPUS_PER_NODE=${3-16}
+GPUS_PER_NODE=${3-4}
 
 DISTRIBUTED_ARGS="--nproc_per_node $GPUS_PER_NODE \
                   --nnodes $NNODES \
@@ -14,7 +14,7 @@ DISTRIBUTED_ARGS="--nproc_per_node $GPUS_PER_NODE \
 
 # model
 BASE_PATH=${1-"/home/MiniLLM"}
-CKPT_NAME="llama2-7B"
+CKPT_NAME="llama2-7B-hf"
 CKPT="${BASE_PATH}/checkpoints/${CKPT_NAME}/"
 # data
 DATA_DIR="${BASE_PATH}/processed_data/dolly/full/llama2/"
@@ -24,7 +24,7 @@ LR=0.00001
 GRAD_ACC=2
 EVAL_BATCH_SIZE=2
 # length
-MAX_LENGTH=512
+MAX_LENGTH=128
 # runtime
 SAVE_PATH="${BASE_PATH}/results/llama2/train/sft"
 # seed
@@ -60,7 +60,7 @@ OPTS+=" --max-prompt-length 256"
 # runtime
 OPTS+=" --do-train"
 OPTS+=" --do-valid"
-OPTS+=" --eval-gen"
+# OPTS+=" --eval-gen"
 OPTS+=" --save-interval -1"
 OPTS+=" --eval-interval -1"
 OPTS+=" --log-interval 4"
@@ -74,6 +74,7 @@ OPTS+=" --deepspeed"
 OPTS+=" --deepspeed_config ${BASE_PATH}/configs/deepspeed/ds_config.json"
 # type
 OPTS+=" --type lm"
+# OPTS+=" --teacher-model-fp16"
 # gen
 OPTS+=" --do-sample"
 OPTS+=" --top-k 0"

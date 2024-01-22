@@ -1,0 +1,9 @@
+results/
+**/__pycache__/
+__pycache__/
+checkpoints/
+data/
+processed_data/
+**/data/
+/data/**
+**/data.txt

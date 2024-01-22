@@ -4,7 +4,7 @@ MASTER_ADDR=localhost
 MASTER_PORT=${2-2012}
 NNODES=1
 NODE_RANK=0
-GPUS_PER_NODE=${3-16}
+GPUS_PER_NODE=${3-4}
 
 DISTRIBUTED_ARGS="--nproc_per_node $GPUS_PER_NODE \
                   --nnodes $NNODES \
@@ -17,7 +17,7 @@ BASE_PATH=${1-"/home/MiniLLM"}
 CKPT_NAME="7B-init"
 CKPT="${BASE_PATH}/results/llama/train/minillm_init/llama-7B"
 TEACHER_CKPT_NAME="13B-sft"
-TEACHER_CKPT="${BASE_PATH}/results/llama/train/sft/llama-13B/"
+TEACHER_CKPT="${BASE_PATH}/checkpoints/llama2-7B-hf"
 MP_SIZE=4
 # data
 PROMPT_DATA_DIR="${BASE_PATH}/processed_data/dolly/prompt/llama/"
@@ -26,7 +26,7 @@ LM_DATA_DIR="${BASE_PATH}/processed_data/roberta/llama/512/20M/"
 SAVE_PATH="${BASE_PATH}/results/llama/train/minillm/"
 # hp
 GRAD_ACC=2
-BATCH_SIZE=8
+BATCH_SIZE=1
 CHUNK_SIZE=8
 
 
@@ -42,8 +42,8 @@ OPTS+=" --n-nodes ${NNODES}"
 OPTS+=" --model-type llama"
 OPTS+=" --teacher-model-fp16"
 OPTS+=" --gradient-checkpointing"
-OPTS+=" --model-parallel"
-OPTS+=" --model-parallel-size ${MP_SIZE}"
+# OPTS+=" --model-parallel"
+# OPTS+=" --model-parallel-size ${MP_SIZE}"
 # data
 OPTS+=" --prompt-data-dir ${PROMPT_DATA_DIR}"
 OPTS+=" --lm-data-dir ${LM_DATA_DIR}"
