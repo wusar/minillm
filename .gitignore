@@ -8,3 +8,4 @@ processed_data/
 /data/**
 **/data.txt
 data.txt
+logs.txt

@@ -15,7 +15,7 @@ DISTRIBUTED_ARGS="--nproc_per_node $GPUS_PER_NODE \
 # model
 BASE_PATH=${1-"/home/MiniLLM"}
 CKPT_NAME="7B-init"
-CKPT="/home/oem/lifanwu/minillm/results/llama2/train/sft/e10-bs1-lr1e-05-G2-N4-NN1/1368"
+CKPT="/data01/shangtang/Llama-2-7b-hf"
 TEACHER_CKPT_NAME="13B-sft"
 TEACHER_CKPT="/data01/shangtang/Llama-2-13b-hf"
 MP_SIZE=4
@@ -23,9 +23,9 @@ MP_SIZE=4
 PROMPT_DATA_DIR="${BASE_PATH}/processed_data/dolly/prompt/llama/"
 LM_DATA_DIR="${BASE_PATH}/processed_data/roberta/llama/512/20M/"
 # runtime
-SAVE_PATH="${BASE_PATH}/results/llama2/train/minillm/"
+SAVE_PATH="/data01/lifanwu/distill_model_checkpoint"
 # hp
-GRAD_ACC=2
+GRAD_ACC=1
 BATCH_SIZE=1
 CHUNK_SIZE=8
 
@@ -50,7 +50,7 @@ OPTS+=" --lm-data-dir ${LM_DATA_DIR}"
 OPTS+=" --dev-num 1000"
 OPTS+=" --num-workers 0"
 # hp
-OPTS+=" --epochs 10"
+OPTS+=" --epochs 3"
 OPTS+=" --total-iters 5000"
 OPTS+=" --kd-ratio 0.5"
 OPTS+=" --batch-size ${BATCH_SIZE}"
